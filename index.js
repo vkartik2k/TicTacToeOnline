@@ -1,4 +1,5 @@
 var element1 = document.getElementsByClassName('column');
+let boardDOM = document.getElementById("board");
 var board = ['','','','','','','','',''];
 
 function switchValue(val){
@@ -28,7 +29,7 @@ function checkWinner() {
 }
 function maxwin(val){
     if (checkWinner()==='X') return -1;
-    if (checkWinner()==='O') return (1);
+    if (checkWinner()==='O') return 1;
     if (checkComplete()=== true) return 0;
     var ans = 0;
     for(var i=0;i<3;i++){
@@ -78,6 +79,8 @@ function usermove(square){
         this.innerHTML = "X";
         this.style.color = "#00AAF5";
         board[square.target.id] = 'X';
+        if(checkComplete())
+            return;
         if(checkWinner()!=''){
             greetWinner();
         }
@@ -89,6 +92,7 @@ function usermove(square){
     } 
 }
 function startGame(){
+    boardDOM.classList.remove("disableInput");
     board = ['','','','','','','','',''];
     for ( var i = 0; i < element1.length; i++) { 
         element1[i].innerHTML = "";
@@ -115,12 +119,14 @@ function greetWinner(){
         element1[1].style.backgroundColor = "#758AA2";
         element1[2].style.backgroundColor = "#758AA2";
         greeted = true;
+        
     }
     else if(board[3]===board[4] && board[3]===board[5]){
         element1[3].style.backgroundColor = "#758AA2";
         element1[4].style.backgroundColor = "#758AA2";
         element1[5].style.backgroundColor = "#758AA2";
         greeted = true;
+   
 
     } 
     else if(board[6]===board[7] && board[6]===board[8]){
@@ -128,6 +134,7 @@ function greetWinner(){
         element1[7].style.backgroundColor = "#758AA2";
         element1[8].style.backgroundColor = "#758AA2";
         greeted = true;
+        
 
     } 
     else if(board[0]===board[3] && board[3]===board[6]){
@@ -135,39 +142,42 @@ function greetWinner(){
         element1[3].style.backgroundColor = "#758AA2";
         element1[6].style.backgroundColor = "#758AA2";
         greeted = true;
-
+        
     } 
     else if(board[1]===board[4] && board[1]===board[7]){
         element1[1].style.backgroundColor = "#758AA2";
         element1[4].style.backgroundColor = "#758AA2";
         element1[7].style.backgroundColor = "#758AA2";
         greeted = true;
-
+        
     } 
     else if(board[2]===board[5] && board[5]===board[8]){
         element1[8].style.backgroundColor = "#758AA2";
         element1[5].style.backgroundColor = "#758AA2";
         element1[2].style.backgroundColor = "#758AA2";
         greeted = true;
-
+  
     } 
     else if(board[0]===board[4] && board[0]===board[8]){
         element1[0].style.backgroundColor = "#758AA2";
         element1[8].style.backgroundColor = "#758AA2";
         element1[4].style.backgroundColor = "#758AA2";
         greeted = true;
-
+    
     } 
     else if(board[2]===board[4] && board[2]===board[6]){
         element1[2].style.backgroundColor = "#758AA2";
         element1[4].style.backgroundColor = "#758AA2";
         element1[6].style.backgroundColor = "#758AA2";
         greeted = true;
-
+    
     }
     else{
         greeted = false;
     }
 
+    if(greeted)
+        boardDOM.classList.add("disableInput");
 }
+
 startGame();
